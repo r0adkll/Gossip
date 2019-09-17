@@ -3,8 +3,9 @@ package com.r0adkll.gossip.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.r0adkll.gossip.R
+import com.r0adkll.gossip.ui.components.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

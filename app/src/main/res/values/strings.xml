@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Gossip</string>
+    <string name="hint_message_input">Text message</string>
 </resources>
