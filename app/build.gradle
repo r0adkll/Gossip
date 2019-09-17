@@ -19,8 +19,7 @@ android {
     buildToolsVersion "29.0.0"
 
     defaultConfig {
-        // TODO: Replace with 'com.client.appname'
-        applicationId "com.ftinc.template"
+        applicationId "com.r0adkll.gossip"
 
         minSdkVersion 22
         targetSdkVersion 29
@@ -90,8 +89,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (variant.buildType.name == "release") {
-                // TODO: REPLACE WITH APP NAME
-                outputFileName = "{REPLACE_WITH_APP_NAME}-" + variant.versionName + ".apk"
+                outputFileName = "Gossip-" + variant.versionName + ".apk"
             }
         }
     }
@@ -115,8 +113,11 @@ ext {
     fragmentVersion = '1.2.0-alpha03'
     junitVersion = '4.12'
     kakaoVersion = '2.1.0'
+    koinVersion = '2.0.1'
+    lifecycleVersion = '2.2.0-alpha04'
     materialVersion = '1.1.0-alpha10'
     mockitoVersion = '3.0.0'
+    navVersion = '2.2.0-alpha02'
     timberVersion = '4.7.1'
     truthVersion = '0.44'
     recyclerViewVersion = '1.1.0-beta04'
@@ -139,13 +140,21 @@ dependencies {
      * TODO: Insert your dependencies here
      */
 
-
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
+    implementation 'io.coil-kt:coil:0.6.1'
 
     /*
      * TODO: END your dependencies here. Be sure to delete these blocks
      */
 
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.koin:koin-test:$koinVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
@@ -159,6 +168,7 @@ dependencies {
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
 
+    androidTestImplementation "org.koin:koin-test:$koinVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation "androidx.test:runner:$androidXTestRunnerVersion"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
