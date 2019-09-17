@@ -1,11 +1,30 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Base.Theme.Gossip" parent="Theme.MaterialComponents.Light.NoActionBar">
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/textOnPrimaryHighEmphasis</item>
+
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/textOnSecondaryHighEmphasis</item>
+
+        <item name="android:colorBackground">@color/colorSurface</item>
+        <item name="colorOnBackground">@color/textOnSurfaceHighEmphasis</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/textOnSurfaceHighEmphasis</item>
+
+        <item name="android:textColorPrimary">@color/textOnSurfaceHighEmphasis</item>
+        <item name="android:textColorSecondary">@color/textOnSurfaceMediumEmphasis</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/textOnSurfaceDisabled</item>
+
+    </style>
+
+    <style name="Theme.Gossip" parent="Base.Theme.Gossip">
     </style>
 
 </resources>
