@@ -35,7 +35,7 @@ class MessengerFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         adapter = MessengerRecyclerAdapter(requireContext()) { reply ->
-            viewModel.sendTextMessage(reply)
+            viewModel.sendTextMessage(reply, true)
         }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(requireContext(), VERTICAL, true)
@@ -54,7 +54,9 @@ class MessengerFragment : BaseFragment() {
         }
 
         viewModel.messages.observe(this, Observer {
-            adapter.submitList(it)
+            adapter.submitList(it) {
+                recycler.smoothScrollToPosition(0)
+            }
         })
     }
 }

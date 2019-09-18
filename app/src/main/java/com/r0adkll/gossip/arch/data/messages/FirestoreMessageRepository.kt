@@ -14,6 +14,8 @@ import com.r0adkll.gossip.arch.domain.messages.MessageType
 import com.r0adkll.gossip.arch.domain.user.User
 import com.r0adkll.gossip.extensions.await
 import com.r0adkll.gossip.extensions.liveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.IOException
 import kotlin.IllegalStateException
@@ -27,8 +29,8 @@ class FirestoreMessageRepository : MessageRepository {
         }
     }
 
-    override suspend fun postMessage(message: Message): Result<String> {
-        return try {
+    override suspend fun postMessage(message: Message): Result<String> = withContext(Dispatchers.IO) {
+        try {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
                 val messageWithUser = message.copy(
@@ -45,16 +47,17 @@ class FirestoreMessageRepository : MessageRepository {
             }
         } catch (e: Exception) {
             Timber.e(e, "Unable to add message to Firestore")
-            Result.failure(e)
+            Result.failure<String>(e)
         }
     }
 
-    override suspend fun getSmartReplies(messages: List<Message>): Result<List<String>> {
-        return try {
+    override suspend fun getSmartReplies(messages: List<Message>): Result<List<String>> = withContext(Dispatchers.IO) {
+        try {
             val userId = FirebaseAuth.getInstance().currentUser?.uid
             val smartReply = FirebaseNaturalLanguage.getInstance().smartReply
             val conversation = messages
                 .filter { it.type == MessageType.TEXT }
+                .sortedBy { it.createdAt }
                 .map {
                     if (it.user.id == userId) {
                         FirebaseTextMessage.createForLocalUser(it.value, it.createdAt.toDate().time)
@@ -67,11 +70,12 @@ class FirestoreMessageRepository : MessageRepository {
             if (result.status == SmartReplySuggestionResult.STATUS_SUCCESS && result.suggestions.isNotEmpty()) {
                 Result.success(result.suggestions.map { it.text })
             } else {
+                Timber.w("SmartReplyResult: $result")
                 Result.failure(IOException("No viable suggestions"))
             }
         } catch (e: Exception) {
             Timber.e(e, "Unable to fetch smart replies")
-            Result.failure(e)
+            Result.failure<List<String>>(e)
         }
     }
 

@@ -5,7 +5,9 @@ import com.r0adkll.gossip.AppPreferences
 import com.r0adkll.gossip.R
 import com.r0adkll.gossip.arch.domain.user.UserRepository
 import com.r0adkll.gossip.arch.ui.components.BaseActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity() {
@@ -20,7 +22,9 @@ class MainActivity : BaseActivity() {
         // Be sure to upload our push token if we haven't already
         if (appPreferences.pushToken != null && !appPreferences.pushTokenUploaded) {
             launch {
-                userRepository.updatePushToken(appPreferences.pushToken!!)
+                withContext(Dispatchers.IO) {
+                    userRepository.updatePushToken(appPreferences.pushToken!!)
+                }
             }
         }
     }

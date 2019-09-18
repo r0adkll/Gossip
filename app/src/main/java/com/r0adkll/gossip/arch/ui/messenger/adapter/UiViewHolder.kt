@@ -49,17 +49,19 @@ sealed class UiViewHolder<I : Item>(itemView: View) : RecyclerView.ViewHolder(it
 
         override fun bind(item: Item.SmartReplies) {
             chips.removeAllViews()
+            chips.setOnCheckedChangeListener(null)
 
             item.replies.forEach { reply ->
                 val chip = Chip(itemView.context).apply {
                     id = View.generateViewId()
                     text = reply
                 }
-                chips.addView(chip)
-            }
 
-            chips.setOnCheckedChangeListener { group, checkedId ->
-                onReplySelected(group.findViewById<Chip>(checkedId).text.toString())
+                chip.setOnClickListener {
+                    onReplySelected(reply)
+                }
+
+                chips.addView(chip)
             }
         }
     }

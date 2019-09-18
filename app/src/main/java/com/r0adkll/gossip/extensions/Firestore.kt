@@ -62,7 +62,6 @@ class CollectionLiveData<T>(
 
         listener = collectionReference.addSnapshotListener { querySnapshot, exception ->
             if (exception == null) {
-                Timber.i("LiveData (id: ${querySnapshot?.documents}")
                 value = querySnapshot?.documents?.map {
                     val obj = it.toObject(clazz)!!
                     identifier(obj, it.id)

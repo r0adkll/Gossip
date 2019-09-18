@@ -36,6 +36,10 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
 
                 Timber.d("Combining Messages($messages) and SmartReplies($smartReplies)")
 
+                if (smartReplies.isNotEmpty()) {
+                    items += Item.SmartReplies(smartReplies)
+                }
+
                 items += messages.sortedByDescending { it.createdAt }
                     .map {
                         if (it.user.id == userId) {
@@ -45,16 +49,12 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
                         }
                     }
 
-                if (smartReplies.isNotEmpty()) {
-                    items += Item.SmartReplies(smartReplies)
-                }
-
                 items
             }
     }
 
-    fun sendTextMessage(text: String) {
-        sendMessage(Message.text(text))
+    fun sendTextMessage(text: String, fromSuggestion: Boolean = false) {
+        sendMessage(Message.text(text, fromSuggestion))
     }
 
     fun sendGifMessage(url: String) {
@@ -80,18 +80,20 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
     }
 
     private fun getSmartReplies(messages: List<Message>) {
-        Timber.d("Fetch smart replies for $messages")
-        wrapEspressoIdlingResource {
-            viewModelScope.launch {
-                val result = messageRepository.getSmartReplies(messages)
-                if (result.isSuccess) {
-                    Timber.i("Smart replies fetched!")
-                    _smartReplies.value = result.getOrNull() ?: emptyList()
-                    _error.value = null
-                } else {
-                    _smartReplies.value = emptyList()
-                    Timber.e(result.exceptionOrNull(), "Unable to fetch smart replies")
-                    _error.value = Event(R.string.posting_message_error)
+        if (messages.maxBy { it.createdAt }?.wasSuggestion == false) {
+            Timber.d("Fetch smart replies for $messages")
+            wrapEspressoIdlingResource {
+                viewModelScope.launch {
+                    val result = messageRepository.getSmartReplies(messages)
+                    if (result.isSuccess) {
+                        Timber.i("Smart replies fetched!")
+                        _smartReplies.value = result.getOrNull() ?: emptyList()
+                        _error.value = null
+                    } else {
+                        _smartReplies.value = emptyList()
+                        Timber.e(result.exceptionOrNull(), "Unable to fetch smart replies")
+                        _error.value = Event(R.string.posting_message_error)
+                    }
                 }
             }
         }

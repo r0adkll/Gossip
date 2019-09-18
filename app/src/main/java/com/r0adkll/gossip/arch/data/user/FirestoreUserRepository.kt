@@ -21,7 +21,7 @@ class FirestoreUserRepository(
 
         userDocument.set(mapOf(
             "name" to user.displayName,
-            "avatarUrl" to user.photoUrl,
+            "avatarUrl" to user.photoUrl?.toString(),
             "pushToken" to pushToken
         )).await()
 
@@ -35,6 +35,6 @@ class FirestoreUserRepository(
     }
 
     companion object {
-        private const val COLLECTION_USERS = "threads"
+        private const val COLLECTION_USERS = "users"
     }
 }
