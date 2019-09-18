@@ -1,5 +1,6 @@
 package com.r0adkll.gossip.fcm
 
+import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.r0adkll.gossip.AppPreferences
@@ -18,6 +19,7 @@ class GossipMessagingService : FirebaseMessagingService(), CoroutineScope by Mai
 
     private val appPreferences by inject<AppPreferences>()
     private val userRepository by inject<UserRepository>()
+    private val notificationManagerCompat by lazy { NotificationManagerCompat.from(this) }
 
     @ImplicitReflectionSerializer
     override fun onMessageReceived(message: RemoteMessage) {
@@ -33,5 +35,9 @@ class GossipMessagingService : FirebaseMessagingService(), CoroutineScope by Mai
         launch {
             userRepository.updatePushToken(token)
         }
+    }
+
+    private fun showNotification(messages: List<Message>) {
+
     }
 }

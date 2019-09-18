@@ -44,11 +44,10 @@ exports.sendMessage = functions.firestore
                         });
 
                         const payload = {
-                            notification: {
-                                title: messageText,
-                                body: 'Sent from ' + messageUser
-                            },
                             data: {
+                                "fromUserName": messageUser,
+                                "fromUserId": messageUserId,
+                                "message": messageText,
                                 "lastMessages": JSON.stringify(messages)
                             }
                         };
