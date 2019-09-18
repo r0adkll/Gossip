@@ -1,4 +1,4 @@
-package com.r0adkll.gossip.arch.domain
+package com.r0adkll.gossip.arch.domain.messages
 
 import androidx.lifecycle.LiveData
 

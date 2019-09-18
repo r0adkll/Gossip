@@ -1,4 +1,4 @@
-package com.r0adkll.gossip.arch.data
+package com.r0adkll.gossip.arch.data.messages
 
 import androidx.lifecycle.LiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -8,10 +8,10 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
 import com.google.firebase.ml.naturallanguage.smartreply.FirebaseTextMessage
 import com.google.firebase.ml.naturallanguage.smartreply.SmartReplySuggestionResult
-import com.r0adkll.gossip.arch.domain.Message
-import com.r0adkll.gossip.arch.domain.MessageRepository
-import com.r0adkll.gossip.arch.domain.MessageType
-import com.r0adkll.gossip.arch.domain.User
+import com.r0adkll.gossip.arch.domain.messages.Message
+import com.r0adkll.gossip.arch.domain.messages.MessageRepository
+import com.r0adkll.gossip.arch.domain.messages.MessageType
+import com.r0adkll.gossip.arch.domain.user.User
 import com.r0adkll.gossip.extensions.await
 import com.r0adkll.gossip.extensions.liveData
 import timber.log.Timber

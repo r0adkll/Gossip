@@ -122,6 +122,7 @@ ext {
     materialVersion = '1.1.0-alpha10'
     mockitoVersion = '3.0.0'
     navVersion = '2.2.0-alpha02'
+    preferenceVersion = '1.1.0'
     timberVersion = '4.7.1'
     truthVersion = '0.44'
     recyclerViewVersion = '1.1.0-beta04'
@@ -137,6 +138,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+    implementation "androidx.preference:preference-ktx:$preferenceVersion"
     implementation "com.ftinc:kit:$ftKitVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
 

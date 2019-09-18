@@ -1,4 +1,4 @@
-package com.r0adkll.gossip.arch.domain
+package com.r0adkll.gossip.arch.domain.user
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

@@ -2,7 +2,7 @@ package com.r0adkll.gossip.arch.ui.messenger.adapter
 
 import com.ftinc.kit.recycler.RecyclerViewItem
 import com.r0adkll.gossip.R
-import com.r0adkll.gossip.arch.domain.Message
+import com.r0adkll.gossip.arch.domain.messages.Message
 
 sealed class Item : RecyclerViewItem {
 

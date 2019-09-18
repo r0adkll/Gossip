@@ -1,8 +1,9 @@
-package com.r0adkll.gossip.arch.domain
+package com.r0adkll.gossip.arch.domain.messages
 
 import android.os.Parcelable
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
+import com.r0adkll.gossip.arch.domain.user.User
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -16,7 +17,15 @@ data class Message(
 
     companion object {
 
-        fun text(text: String): Message = Message(type = MessageType.TEXT, value = text)
-        fun gif(url: String): Message = Message(type = MessageType.GIF, value = url)
+        fun text(text: String): Message =
+            Message(
+                type = MessageType.TEXT,
+                value = text
+            )
+        fun gif(url: String): Message =
+            Message(
+                type = MessageType.GIF,
+                value = url
+            )
     }
 }

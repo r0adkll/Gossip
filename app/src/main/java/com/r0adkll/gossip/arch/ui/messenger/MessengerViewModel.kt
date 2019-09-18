@@ -3,8 +3,8 @@ package com.r0adkll.gossip.arch.ui.messenger
 import androidx.lifecycle.*
 import com.google.firebase.auth.FirebaseAuth
 import com.r0adkll.gossip.R
-import com.r0adkll.gossip.arch.domain.Message
-import com.r0adkll.gossip.arch.domain.MessageRepository
+import com.r0adkll.gossip.arch.domain.messages.Message
+import com.r0adkll.gossip.arch.domain.messages.MessageRepository
 import com.r0adkll.gossip.arch.ui.messenger.adapter.Item
 import com.r0adkll.gossip.extensions.combineLatest
 import com.r0adkll.gossip.extensions.doOnNext
