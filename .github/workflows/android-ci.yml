@@ -13,12 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Create google-services.json file
+      uses: finnp/create-file-action@1.0.0
+      env:
+        FILE_NAME: "/github/workspace/app/google-services.json"
+        FILE_DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
     - name: setup-android
       uses: msfjarvis/setup-android@0.2
       with:
         gradleTasks: "ktlintCheck detekt lint test"
 
   danger:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
