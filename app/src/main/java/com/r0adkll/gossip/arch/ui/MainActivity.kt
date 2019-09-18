@@ -28,5 +28,4 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-
 }

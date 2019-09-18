@@ -1,6 +1,7 @@
 package com.r0adkll.gossip.arch.data.messages
 
 import androidx.lifecycle.LiveData
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
@@ -19,7 +20,6 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.IOException
 import kotlin.IllegalStateException
-
 
 class FirestoreMessageRepository : MessageRepository {
 
@@ -45,7 +45,7 @@ class FirestoreMessageRepository : MessageRepository {
             } else {
                 Result.failure(IllegalStateException("No user authenticated"))
             }
-        } catch (e: Exception) {
+        } catch (e: FirebaseException) {
             Timber.e(e, "Unable to add message to Firestore")
             Result.failure<String>(e)
         }
@@ -73,7 +73,7 @@ class FirestoreMessageRepository : MessageRepository {
                 Timber.w("SmartReplyResult: $result")
                 Result.failure(IOException("No viable suggestions"))
             }
-        } catch (e: Exception) {
+        } catch (e: FirebaseException) {
             Timber.e(e, "Unable to fetch smart replies")
             Result.failure<List<String>>(e)
         }

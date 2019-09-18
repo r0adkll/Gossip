@@ -80,4 +80,3 @@ class CollectionLiveData<T>(
         listener = null
     }
 }
-

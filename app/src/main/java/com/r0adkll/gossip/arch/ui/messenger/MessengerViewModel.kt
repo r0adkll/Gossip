@@ -1,6 +1,9 @@
 package com.r0adkll.gossip.arch.ui.messenger
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.r0adkll.gossip.R
 import com.r0adkll.gossip.arch.domain.messages.Message

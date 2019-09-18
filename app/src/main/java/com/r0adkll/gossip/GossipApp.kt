@@ -13,7 +13,7 @@ class GossipApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        AndroidThreeTen.init(this);
+        AndroidThreeTen.init(this)
         startKoin {
             androidContext(this@GossipApp)
             androidLogger()

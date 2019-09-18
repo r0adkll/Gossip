@@ -13,12 +13,12 @@ sealed class Item : RecyclerViewItem {
         override val itemId: Long get() = msg.id.hashCode().toLong()
         override val layoutId: Int get() = R.layout.item_message_self
 
-        override fun isItemSame(new: RecyclerViewItem): Boolean = when(new) {
+        override fun isItemSame(new: RecyclerViewItem): Boolean = when (new) {
             is UserMessage -> new.msg.id == msg.id
             else -> false
         }
 
-        override fun isContentSame(new: RecyclerViewItem): Boolean = when(new) {
+        override fun isContentSame(new: RecyclerViewItem): Boolean = when (new) {
             is UserMessage -> new.msg == msg
             else -> false
         }
@@ -29,12 +29,12 @@ sealed class Item : RecyclerViewItem {
         override val itemId: Long get() = msg.id.hashCode().toLong()
         override val layoutId: Int get() = R.layout.item_message_other
 
-        override fun isItemSame(new: RecyclerViewItem): Boolean = when(new) {
+        override fun isItemSame(new: RecyclerViewItem): Boolean = when (new) {
             is OtherMessage -> new.msg.id == msg.id
             else -> false
         }
 
-        override fun isContentSame(new: RecyclerViewItem): Boolean = when(new) {
+        override fun isContentSame(new: RecyclerViewItem): Boolean = when (new) {
             is OtherMessage -> new.msg == msg
             else -> false
         }

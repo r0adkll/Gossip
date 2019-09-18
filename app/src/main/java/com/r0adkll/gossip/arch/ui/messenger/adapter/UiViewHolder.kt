@@ -89,7 +89,7 @@ sealed class UiViewHolder<I : Item>(itemView: View) : RecyclerView.ViewHolder(it
             viewType: Int,
             onReplySelected: (String) -> Unit
         ): UiViewHolder<Item> {
-            return when(ViewType.of(viewType)) {
+            return when (ViewType.of(viewType)) {
                 ViewType.USER_MESSAGE -> MessageViewHolder.UserMessageViewHolder(itemView) as UiViewHolder<Item>
                 ViewType.OTHER_MESSAGE -> MessageViewHolder.OtherMessageViewHolder(itemView) as UiViewHolder<Item>
                 ViewType.SMART_REPLIES -> SmartRepliesViewHolder(itemView, onReplySelected) as UiViewHolder<Item>

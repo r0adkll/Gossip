@@ -5,7 +5,9 @@ import com.google.firebase.messaging.RemoteMessage
 import com.r0adkll.gossip.AppPreferences
 import com.r0adkll.gossip.arch.domain.messages.Message
 import com.r0adkll.gossip.arch.domain.user.UserRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
@@ -19,7 +21,6 @@ class GossipMessagingService : FirebaseMessagingService(), CoroutineScope by Mai
 
     @ImplicitReflectionSerializer
     override fun onMessageReceived(message: RemoteMessage) {
-        Timber.i("onMessageReceived(${message}")
         message.data["lastMessages"]?.let { lastMessages ->
             val messages = Json.nonstrict.parse(Message.serializer().list, lastMessages)
             Timber.d("Notification(lastMessages=$messages)")
