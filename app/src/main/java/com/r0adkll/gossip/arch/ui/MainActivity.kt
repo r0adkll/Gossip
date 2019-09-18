@@ -1,9 +1,8 @@
-package com.r0adkll.gossip.ui
+package com.r0adkll.gossip.arch.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.r0adkll.gossip.R
-import com.r0adkll.gossip.ui.components.BaseActivity
+import com.r0adkll.gossip.arch.ui.components.BaseActivity
 
 class MainActivity : BaseActivity() {
 
