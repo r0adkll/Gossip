@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.r0adkll.gossip"
 
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 29
 
         versionCode gitVersioner.versionCode

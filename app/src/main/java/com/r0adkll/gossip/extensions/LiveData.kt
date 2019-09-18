@@ -7,6 +7,7 @@ fun <I> LiveData<I>.doOnNext(onNext: (I) -> Unit): LiveData<I> {
     return MediatorLiveData<I>().apply {
         addSource(this@doOnNext) {
             onNext(it)
+            value = it
         }
     }
 }

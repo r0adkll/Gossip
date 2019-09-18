@@ -34,6 +34,8 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
             .combineLatest(_smartReplies) { messages, smartReplies ->
                 val items = ArrayList<Item>()
 
+                Timber.d("Combining Messages($messages) and SmartReplies($smartReplies)")
+
                 items += messages.sortedByDescending { it.createdAt }
                     .map {
                         if (it.user.id == userId) {
@@ -78,6 +80,7 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
     }
 
     private fun getSmartReplies(messages: List<Message>) {
+        Timber.d("Fetch smart replies for $messages")
         wrapEspressoIdlingResource {
             viewModelScope.launch {
                 val result = messageRepository.getSmartReplies(messages)

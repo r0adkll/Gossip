@@ -13,6 +13,10 @@ class MessengerRecyclerAdapter(
 
     private val inflater = LayoutInflater.from(context)
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UiViewHolder<Item> {
         val itemView = inflater.inflate(viewType, parent, false)
         return UiViewHolder.create(itemView, viewType, onReplySelected)
@@ -21,6 +25,14 @@ class MessengerRecyclerAdapter(
     override fun onBindViewHolder(holder: UiViewHolder<Item>, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position).viewType
+    }
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).itemId
     }
 
     companion object {

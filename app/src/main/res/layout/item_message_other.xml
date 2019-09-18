@@ -12,7 +12,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-
+        android:layout_marginTop="4dp"
+        android:src="@drawable/dr_avatar_placeholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:minHeight="40dp"
         android:layout_marginStart="8dp"
-        app:cardBackgroundColor="?attr/colorPrimary"
+        app:cardBackgroundColor="?attr/colorSecondary"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,6 +42,7 @@
             android:layout_gravity="center_vertical"
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="?attr/colorOnSecondary"
             tools:text="This is a test message."
             />
 

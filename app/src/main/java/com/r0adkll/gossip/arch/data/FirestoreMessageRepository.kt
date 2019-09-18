@@ -11,10 +11,12 @@ import com.google.firebase.ml.naturallanguage.smartreply.SmartReplySuggestionRes
 import com.r0adkll.gossip.arch.domain.Message
 import com.r0adkll.gossip.arch.domain.MessageRepository
 import com.r0adkll.gossip.arch.domain.MessageType
+import com.r0adkll.gossip.arch.domain.User
 import com.r0adkll.gossip.extensions.await
 import com.r0adkll.gossip.extensions.liveData
 import timber.log.Timber
 import java.io.IOException
+import kotlin.IllegalStateException
 
 
 class FirestoreMessageRepository : MessageRepository {
@@ -27,8 +29,20 @@ class FirestoreMessageRepository : MessageRepository {
 
     override suspend fun postMessage(message: Message): Result<String> {
         return try {
-            val newDocument = getMessagesCollection().add(message).await()
-            Result.success(newDocument.id)
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user != null) {
+                val messageWithUser = message.copy(
+                    user = User(
+                        user.uid,
+                        user.displayName ?: "Random User",
+                        user.photoUrl?.toString() ?: ""
+                    )
+                )
+                val newDocument = getMessagesCollection().add(messageWithUser).await()
+                Result.success(newDocument.id)
+            } else {
+                Result.failure(IllegalStateException("No user authenticated"))
+            }
         } catch (e: Exception) {
             Timber.e(e, "Unable to add message to Firestore")
             Result.failure(e)
