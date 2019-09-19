@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
 import com.google.firebase.ml.naturallanguage.smartreply.FirebaseTextMessage
@@ -26,6 +28,21 @@ class FirestoreMessageRepository : MessageRepository {
     override fun observeMessages(): LiveData<List<Message>> {
         return getMessagesCollection().liveData { message, id ->
             message.id = id
+        }
+    }
+
+    override suspend fun getRecentMessages(limit: Long): Result<List<Message>> = withContext(Dispatchers.IO) {
+        try {
+            val messages = getMessagesCollection()
+                .limit(limit)
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .get()
+                .await()
+                .toObjects<Message>()
+            Result.success(messages)
+        } catch (e: FirebaseException) {
+            Timber.e(e, "Failed to get recent messages")
+            Result.failure<List<Message>>(e)
         }
     }
 

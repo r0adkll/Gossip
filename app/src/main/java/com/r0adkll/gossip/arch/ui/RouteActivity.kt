@@ -25,7 +25,8 @@ class RouteActivity : Activity() {
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .setTheme(R.style.Theme_Gossip_Splash)
-                    .setLogo(R.drawable.ic_launcher_foreground)
+                    .setLogo(R.drawable.ic_cellphone_message)
+                    .setIsSmartLockEnabled(false)
                     .setAlwaysShowSignInMethodScreen(true)
                     .build(),
                 RC_SIGN_IN)
