@@ -10,9 +10,9 @@ exports.sendMessage = functions.firestore
     .document('threads/general/messages/{messageId}')
     .onWrite(((change, context) => {
         // let messageId = context.params.messageId;
-        let messageText = change.after.get('value');
+        //let messageText = change.after.get('value');
         let messageUserId = change.after.get('user.id');
-        let messageUser = change.after.get('user.name');
+        //let messageUser = change.after.get('user.name');
 
         // Find all push tokens
         let query = db.collection('users');
@@ -31,6 +31,8 @@ exports.sendMessage = functions.firestore
                     }
                 });
 
+                console.log("tokens found: " + tokens);
+
                 // Now fetch the last 3 messages
                 let latestMessagesQuery = db.collection('threads/general/messages');
                 return latestMessagesQuery
@@ -44,16 +46,21 @@ exports.sendMessage = functions.firestore
                         });
 
                         const payload = {
-                            notification: {
-                                title: messageText,
-                                body: 'Sent from ' + messageUser
-                            },
                             data: {
                                 "lastMessages": JSON.stringify(messages)
                             }
                         };
 
-                        return defaultMessaging.sendToDevice(tokens.map(user => user.token), payload);
+                        console.log("Sending push message " + payload + "to: " + tokens);
+
+                        return defaultMessaging.sendToDevice(tokens.map(user => user.token), payload)
+                            .then((response) => {
+                                // Response is a message ID string.
+                                console.log('Successfully sent message:', response);
+                            })
+                            .catch((error) => {
+                                console.log('Error sending message:', error);
+                            });
                     });
             });
     }));

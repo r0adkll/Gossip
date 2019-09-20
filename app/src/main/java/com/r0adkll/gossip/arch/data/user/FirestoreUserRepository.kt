@@ -7,13 +7,15 @@ import com.google.firebase.ktx.Firebase
 import com.r0adkll.gossip.AppPreferences
 import com.r0adkll.gossip.arch.domain.user.UserRepository
 import com.r0adkll.gossip.extensions.await
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.lang.IllegalStateException
 
 class FirestoreUserRepository(
     val appPreferences: AppPreferences
 ) : UserRepository {
 
-    override suspend fun updatePushToken(pushToken: String) {
+    override suspend fun updatePushToken(pushToken: String) = withContext(Dispatchers.IO) {
         val user = FirebaseAuth.getInstance().currentUser
             ?: throw IllegalStateException("No user logged in")
 

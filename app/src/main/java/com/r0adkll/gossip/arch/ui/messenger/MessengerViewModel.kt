@@ -37,7 +37,7 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
             .combineLatest(_smartReplies) { messages, smartReplies ->
                 val items = ArrayList<Item>()
 
-                Timber.d("Combining Messages($messages) and SmartReplies($smartReplies)")
+                Timber.d("Combining Messages(${messages.size}) and SmartReplies($smartReplies)")
 
                 if (smartReplies.isNotEmpty()) {
                     items += Item.SmartReplies(smartReplies)
@@ -84,7 +84,7 @@ class MessengerViewModel(private val messageRepository: MessageRepository) : Vie
 
     private fun getSmartReplies(messages: List<Message>) {
         if (messages.maxBy { it.createdAt }?.wasSuggestion == false) {
-            Timber.d("Fetch smart replies for $messages")
+            Timber.d("Fetch smart replies for ${messages.size}")
             wrapEspressoIdlingResource {
                 viewModelScope.launch {
                     val result = messageRepository.getSmartReplies(messages)

@@ -14,18 +14,16 @@ class RouteActivity : Activity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
-            // Choose authentication providers
             val providers = arrayListOf(
                 AuthUI.IdpConfig.GoogleBuilder().build()
             )
-
-            // Create and launch sign-in intent
             startActivityForResult(
                 AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .setTheme(R.style.Theme_Gossip_Splash)
-                    .setLogo(R.drawable.ic_launcher_foreground)
+                    .setLogo(R.drawable.ic_cellphone_message)
+                    .setIsSmartLockEnabled(false)
                     .setAlwaysShowSignInMethodScreen(true)
                     .build(),
                 RC_SIGN_IN)
